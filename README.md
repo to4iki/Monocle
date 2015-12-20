@@ -1,5 +1,6 @@
 # Monocle
 
+[![Carthage compatible][carthage-image]][carthage-url]
 [![License][license-image]][license-url]
 
 a Lens library
@@ -7,6 +8,14 @@ a Lens library
 ## Description
 
 Inspired by Scala [julien-truffaut/Monocle](https://github.com/julien-truffaut/Monocle).
+
+## Installation
+
+#### [Carthage](https://github.com/Carthage/Carthage)
+
+- Insert `github "to4iki/Monocle"` to your Cartfile.
+- Run `carthage update`.
+- Link your app with `Monocle.framework` in `Carthage/Checkouts`.
 
 ## Usage
 
@@ -55,6 +64,9 @@ let _company: Lens<Employee, Company> = Lens(getter: { $0.company }, setter: { E
 ## Licence
 
 [MIT](http://to4iki.mit-license.org/)
+
+[carthage-url]: https://github.com/Carthage/Carthage
+[carthage-image]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
 
 [license-url]: http://to4iki.mit-license.org/
 [license-image]: http://img.shields.io/badge/license-MIT-brightgreen.svg
