@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E35EA481C268DF300BFFEBD /* Monocle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E35EA471C268DF300BFFEBD /* Monocle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E35EA4F1C268DF300BFFEBD /* Monocle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E35EA441C268DF300BFFEBD /* Monocle.framework */; };
-		1E35EA541C268DF300BFFEBD /* MonocleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA531C268DF300BFFEBD /* MonocleTests.swift */; };
+		1E35EA541C268DF300BFFEBD /* LensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA531C268DF300BFFEBD /* LensTests.swift */; };
+		1E35EA5F1C268EC000BFFEBD /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA5E1C268EC000BFFEBD /* Lens.swift */; };
+		1E35EA611C269FE000BFFEBD /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA601C269FE000BFFEBD /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +29,10 @@
 		1E35EA471C268DF300BFFEBD /* Monocle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Monocle.h; sourceTree = "<group>"; };
 		1E35EA491C268DF300BFFEBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E35EA4E1C268DF300BFFEBD /* MonocleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonocleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E35EA531C268DF300BFFEBD /* MonocleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonocleTests.swift; sourceTree = "<group>"; };
+		1E35EA531C268DF300BFFEBD /* LensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensTests.swift; sourceTree = "<group>"; };
 		1E35EA551C268DF300BFFEBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E35EA5E1C268EC000BFFEBD /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
+		1E35EA601C269FE000BFFEBD /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				1E35EA471C268DF300BFFEBD /* Monocle.h */,
+				1E35EA601C269FE000BFFEBD /* Operators.swift */,
+				1E35EA5E1C268EC000BFFEBD /* Lens.swift */,
 				1E35EA491C268DF300BFFEBD /* Info.plist */,
 			);
 			path = Monocle;
@@ -80,7 +86,7 @@
 		1E35EA521C268DF300BFFEBD /* MonocleTests */ = {
 			isa = PBXGroup;
 			children = (
-				1E35EA531C268DF300BFFEBD /* MonocleTests.swift */,
+				1E35EA531C268DF300BFFEBD /* LensTests.swift */,
 				1E35EA551C268DF300BFFEBD /* Info.plist */,
 			);
 			path = MonocleTests;
@@ -196,6 +202,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E35EA5F1C268EC000BFFEBD /* Lens.swift in Sources */,
+				1E35EA611C269FE000BFFEBD /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E35EA541C268DF300BFFEBD /* MonocleTests.swift in Sources */,
+				1E35EA541C268DF300BFFEBD /* LensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +318,7 @@
 		1E35EA591C268DF300BFFEBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +329,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = to4iki.com.github.Monocle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		1E35EA5A1C268DF300BFFEBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -378,6 +389,7 @@
 				1E35EA5A1C268DF300BFFEBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E35EA5B1C268DF300BFFEBD /* Build configuration list for PBXNativeTarget "MonocleTests" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +398,7 @@
 				1E35EA5D1C268DF300BFFEBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
