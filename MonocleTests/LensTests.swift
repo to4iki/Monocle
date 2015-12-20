@@ -60,14 +60,20 @@ class LensTests: XCTestCase {
     
     func testGet() {
         let extra = (_company >>> _address >>> _street >>> _name).get(employee)
+        
         assert(extra == "street")
     }
     
     func testSet() {
         let extra = (_company >>> _address >>> _street >>> _name).set(employee, to: "new street")
         
-        assert(extra.company.address.street.name == "new street")
         assert(extra == Employee(company: Company(address: Address(street: Street(name: "new street")))))
+    }
+    
+    func testModify() {
+        let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { "modify \($0)" }
+        
+        assert(extra == Employee(company: Company(address: Address(street: Street(name: "modify street")))))
     }
     
     func testPerformanceExample() {

@@ -51,11 +51,15 @@ extension Lens {
             return nil
         }
     }
+    
+    public func modify(from: A, toF: B -> B) -> A {
+        return set(from, to: toF(get(from)))
+    }
 }
 
 // MARK: - Compose
 
-public func compose<A, B, C>(left: Lens<A, B>, right: Lens<B, C>) -> Lens<A, C> {
+public func composeLens<A, B, C>(left: Lens<A, B>, right: Lens<B, C>) -> Lens<A, C> {
     let getter: A -> C = { a in
         right.get(left.get(a))
     }
@@ -67,6 +71,6 @@ public func compose<A, B, C>(left: Lens<A, B>, right: Lens<B, C>) -> Lens<A, C> 
     return Lens(getter: getter, setter: setter)
 }
 
-public func >>><A, B, C>(lhs: Lens<A, B>, rhs: Lens<B, C>) -> Lens<A, C> {
-    return compose(lhs, right: rhs)
+public func >>> <A, B, C>(lhs: Lens<A, B>, rhs: Lens<B, C>) -> Lens<A, C> {
+    return composeLens(lhs, right: rhs)
 }
