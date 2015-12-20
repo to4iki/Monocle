@@ -1,5 +1,6 @@
 # Monocle
 
+[![Build Status][status-image]][status-url]
 [![Carthage compatible][carthage-image]][carthage-url]
 [![License][license-image]][license-url]
 
@@ -30,7 +31,7 @@ struct Employee { let company: Company }
 ```
 
 A employee and we need to set "modify" of his company street name address:
-Need to repeat at each level the full path to reach it...
+Need to set the first character of company street name address in upper case
 
 ```swift
 let employee: Employee = ...
@@ -52,9 +53,9 @@ let _street: Lens<Address, Street> = Lens(getter: { $0.street }, setter: { Addre
 let _address: Lens<Company, Address> = Lens(getter: { $0.address }, setter: { Company(address: $1) })
 let _company: Lens<Employee, Company> = Lens(getter: { $0.company }, setter: { Employee(company: $1) })
 
-(composeLens(_company, right: composeLens(_address, right: composeLens(_street, right: _name)))).modify(employee) { "modify \($0)" }
+(composeLens(_company, right: composeLens(_address, right: composeLens(_street, right: _name)))).modify(employee) { $0.capitalizedString }
 // => operator syntax
-(_company >>> _address >>> _street >>> _name).modify(employee) { "modify \($0)" }
+(_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
 ```
 
 ## Author
@@ -64,6 +65,9 @@ let _company: Lens<Employee, Company> = Lens(getter: { $0.company }, setter: { E
 ## Licence
 
 [MIT](http://to4iki.mit-license.org/)
+
+[status-url]: https://travis-ci.org/to4iki/Monocle
+[status-image]: https://travis-ci.org/to4iki/Monocle.svg
 
 [carthage-url]: https://github.com/Carthage/Carthage
 [carthage-image]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat

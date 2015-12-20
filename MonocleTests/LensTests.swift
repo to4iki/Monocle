@@ -71,9 +71,9 @@ class LensTests: XCTestCase {
     }
     
     func testModify() {
-        let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { "modify \($0)" }
+        let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
         
-        assert(extra == Employee(company: Company(address: Address(street: Street(name: "modify street")))))
+        assert(extra == Employee(company: Company(address: Address(street: Street(name: "Street")))))
     }
     
     func testPerformanceExample() {
