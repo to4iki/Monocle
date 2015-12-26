@@ -32,19 +32,19 @@ extension Lens {
         return from.map { (a: A) -> B in getter(a) }
     }
     
-    public func set(from: A, to: B) -> A {
+    public func set(from: A, _ to: B) -> A {
         return setter(from, to)
     }
     
-    public func set(from: A?, to: B) -> A? {
+    public func set(from: A?, _ to: B) -> A? {
         return from.map { (a: A) -> A in setter(a, to) }
     }
     
-    public func set(from: A, to: B?) -> A? {
+    public func set(from: A, _ to: B?) -> A? {
         return to.map { (b: B) -> A in setter(from, b) }
     }
     
-    public func set(from: A?, to: B?) -> A? {
+    public func set(from: A?, _ to: B?) -> A? {
         if let a = from, b = to {
             return setter(a, b)
         } else {
@@ -52,25 +52,31 @@ extension Lens {
         }
     }
     
-    public func modify(from: A, toF: B -> B) -> A {
-        return set(from, to: toF(get(from)))
+    public func modify(from: A, f: B -> B) -> A {
+        return set(from, f(get(from)))
     }
 }
 
 // MARK: - Compose
 
-public func composeLens<A, B, C>(left: Lens<A, B>, right: Lens<B, C>) -> Lens<A, C> {
-    let getter: A -> C = { a in
-        right.get(left.get(a))
-    }
+extension Lens {
     
-    let setter: (A, C) -> A = { a, c in
-        left.set(a, to: right.set(left.get(a), to: c))
+    public func compose<C>(other: Lens<B, C>) -> Lens<A, C> {
+        return Lens<A, C>(
+            getter: { (a: A) -> C in
+                other.get(self.get(a))
+            },
+            setter: { (a: A, c: C) -> A in
+                self.set(a, other.set(self.get(a), c))
+            }
+        )
     }
-    
-    return Lens(getter: getter, setter: setter)
 }
 
 public func >>> <A, B, C>(lhs: Lens<A, B>, rhs: Lens<B, C>) -> Lens<A, C> {
-    return composeLens(lhs, right: rhs)
+    return lhs.compose(rhs)
+}
+
+public func <<< <A, B, C>(lhs: Lens<B, C>, rhs: Lens<A, B>) -> Lens<A, C> {
+    return rhs.compose(lhs)
 }

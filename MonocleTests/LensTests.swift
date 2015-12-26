@@ -58,14 +58,22 @@ class LensTests: XCTestCase {
         super.tearDown()
     }
     
-    func testGet() {
+    func testGet_AndThen() {
         let extra = (_company >>> _address >>> _street >>> _name).get(employee)
         
         assert(extra == "street")
     }
     
+    func testGet_Compose() {
+        // compose
+        let extra = (_name <<< _street <<< _address <<< _company).get(employee)
+        
+        assert(extra == "street")
+    }
+    
     func testSet() {
-        let extra = (_company >>> _address >>> _street >>> _name).set(employee, to: "new street")
+        // andThen
+        let extra = (_company >>> _address >>> _street >>> _name).set(employee, "new street")
         
         assert(extra == Employee(company: Company(address: Address(street: Street(name: "new street")))))
     }

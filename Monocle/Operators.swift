@@ -8,10 +8,14 @@
 
 import Foundation
 
-/**
-Left-to-Right Composition
-*/
+/// Left-to-Right Composition
 infix operator >>> {
 associativity right
 precedence 110
+}
+
+/// Right-to-Left Composition
+infix operator <<< {
+associativity right
+precedence 170
 }
