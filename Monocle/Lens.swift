@@ -24,26 +24,32 @@ public struct Lens<A, B> {
 
 extension Lens {
     
+    /// Runs the getter on a given structure.
     public func get(from: A) -> B {
         return getter(from)
     }
     
+    /// Runs the getter on a given structure.
     public func get(from: A?) -> B? {
         return from.map { (a: A) -> B in getter(a) }
     }
     
+    /// Runs the setter on a given structure and value to yield a new structure.
     public func set(from: A, _ to: B) -> A {
         return setter(from, to)
     }
     
+    /// Runs the setter on a given structure and value to yield a new structure.
     public func set(from: A?, _ to: B) -> A? {
         return from.map { (a: A) -> A in setter(a, to) }
     }
     
+    /// Runs the setter on a given structure and value to yield a new structure.
     public func set(from: A, _ to: B?) -> A? {
         return to.map { (b: B) -> A in setter(from, b) }
     }
     
+    /// Runs the setter on a given structure and value to yield a new structure.
     public func set(from: A?, _ to: B?) -> A? {
         if let a = from, b = to {
             return setter(a, b)
@@ -52,15 +58,17 @@ extension Lens {
         }
     }
     
+    /// Transform the value of the retrieved field by a function.
     public func modify(from: A, f: B -> B) -> A {
         return set(from, f(get(from)))
     }
 }
 
-// MARK: - Compose
+// MARK: - Creator
 
 extension Lens {
     
+    /// Composes a `Lens` with the receiver.
     public func compose<C>(other: Lens<B, C>) -> Lens<A, C> {
         return Lens<A, C>(
             getter: { (a: A) -> C in
@@ -71,7 +79,21 @@ extension Lens {
             }
         )
     }
+    
+    /// Creates a `Lens` that focuses on array structures.
+    public func lift() -> Lens<[A], [B]> {
+        return Lens<[A], [B]>(
+            getter: { (xs: [A]) -> [B] in
+                xs.map(self.get)
+            },
+            setter: { (xs: [A], ys: [B]) -> [A] in
+                zip(xs, ys).map(self.set)
+            }
+        )
+    }
 }
+
+// MARK: - Operator
 
 public func >>> <A, B, C>(lhs: Lens<A, B>, rhs: Lens<B, C>) -> Lens<A, C> {
     return lhs.compose(rhs)
