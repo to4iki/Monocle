@@ -30,7 +30,6 @@ struct Company { let address: Address }
 struct Employee { let company: Company }
 ```
 
-A employee and we need to set "modify" of his company street name address:
 Need to set the first character of company street name address in upper case
 
 ```swift
@@ -53,7 +52,7 @@ let _street: Lens<Address, Street> = Lens(getter: { $0.street }, setter: { Addre
 let _address: Lens<Company, Address> = Lens(getter: { $0.address }, setter: { Company(address: $1) })
 let _company: Lens<Employee, Company> = Lens(getter: { $0.company }, setter: { Employee(company: $1) })
 
-(composeLens(_company, right: composeLens(_address, right: composeLens(_street, right: _name)))).modify(employee) { $0.capitalizedString }
+(_company.compose(_address.compose(_street).compose(_name))).modify(employee) { $0.capitalizedString }
 // => operator syntax
 (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
 ```
