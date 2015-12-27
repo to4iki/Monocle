@@ -124,6 +124,25 @@ class LensTests: XCTestCase {
         assert(extra.1.name == "new street2")
     }
     
+    func testFanoutGet() {
+        let address = Address(street: Street(name: "street1"))
+        
+        let both = _street.fanout((_street >>> _name))
+        let extra = both.get(address)
+        
+        assert(extra.0.name == "street1")
+        assert(extra.1 == "street1")
+    }
+    
+    func testFanoutSet() {
+        let address = Address(street: Street(name: "street1"))
+        
+        let both = _street.fanout((_street >>> _name))
+        let extra = both.set(address, (Street(name: "new street1"), "new street2"))
+        
+        print(extra.street.name == "new street2")
+    }
+    
     func testPerformanceExample() {
         self.measureBlock {
         }

@@ -103,6 +103,18 @@ extension Lens {
             }
         )
     }
+    
+    /// Creates a `Lens` that sends its input structure to both Lenses to focus on distinct subparts.
+    public func fanout<C>(other: Lens<A, C>) -> Lens<A, (B, C)> {
+        return Lens<A, (B, C)>(
+            getter: { (a: A) -> (B, C) in
+                (self.get(a), other.get(a))
+            },
+            setter: { (a: A, t: (B, C)) -> A in
+                other.set(self.set(a, t.0), t.1)
+            }
+        )
+    }
 }
 
 // MARK: - Operator
