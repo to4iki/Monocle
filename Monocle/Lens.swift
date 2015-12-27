@@ -91,6 +91,18 @@ extension Lens {
             }
         )
     }
+    
+    /// Creates a `Lens` that focuses on two structures.
+    public func split<C, D>(other: Lens<C, D>) -> Lens<(A, C), (B, D)> {
+        return Lens<(A, C), (B, D)>(
+            getter: { (t: (A, C)) -> (B, D) in
+                (self.get(t.0), other.get(t.1))
+            },
+            setter: { (t1: (A, C), t2: (B, D)) -> (A, C) in
+                (self.set(t1.0, t2.0), other.set(t1.1, t2.1))
+            }
+        )
+    }
 }
 
 // MARK: - Operator

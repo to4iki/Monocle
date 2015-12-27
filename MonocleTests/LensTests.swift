@@ -87,7 +87,8 @@ class LensTests: XCTestCase {
     func testLiftGet() {
         let streets = [Street(name: "street1"), Street(name: "street2")]
         
-        let extra = _name.lift().get(streets)
+        let lifted = _name.lift()
+        let extra = lifted.get(streets)
         
         assert(extra == ["street1", "street2"])
     }
@@ -95,9 +96,32 @@ class LensTests: XCTestCase {
     func testLiftSet() {
         let streets = [Street(name: "street1"), Street(name: "street2")]
         
-        let extra = _name.lift().set(streets, ["new street1", "new street2"])
+        let lifted = _name.lift()
+        let extra = lifted.set(streets, ["new street1", "new street2"])
         
         assert(extra == [Street(name: "new street1"), Street(name: "new street2")])
+    }
+    
+    func testSplitGet() {
+        let address = Address(street: Street(name: "street1"))
+        let street = Street(name: "street2")
+        
+        let both = (_street >>> _name).split(_name)
+        let extra = both.get((address, street))
+        
+        assert(extra.0 == "street1")
+        assert(extra.1 == "street2")
+    }
+    
+    func testSplitSet() {
+        let address = Address(street: Street(name: "street1"))
+        let street = Street(name: "street2")
+        
+        let both = (_street >>> _name).split(_name)
+        let extra = both.set((address, street), ("new street1", "new street2"))
+        
+        assert(extra.0.street.name == "new street1")
+        assert(extra.1.name == "new street2")
     }
     
     func testPerformanceExample() {
