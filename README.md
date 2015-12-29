@@ -47,10 +47,10 @@ Employee(company:
 Use lens:
 
 ```swift
-let _name: Lens<Street, String> = Lens(getter: { $0.name }, setter: { Street(name: $1) })
-let _street: Lens<Address, Street> = Lens(getter: { $0.street }, setter: { Address(street: $1) })
-let _address: Lens<Company, Address> = Lens(getter: { $0.address }, setter: { Company(address: $1) })
-let _company: Lens<Employee, Company> = Lens(getter: { $0.company }, setter: { Employee(company: $1) })
+let _name: Lens<Street, String> = Lens(get: { $0.name }, set: { Street(name: $1) })
+let _street: Lens<Address, Street> = Lens(get: { $0.street }, set: { Address(street: $1) })
+let _address: Lens<Company, Address> = Lens(get: { $0.address }, set: { Company(address: $1) })
+let _company: Lens<Employee, Company> = Lens(get: { $0.company }, set: { Employee(company: $1) })
 
 (_company.compose(_address.compose(_street).compose(_name))).modify(employee) { $0.capitalizedString }
 // => operator syntax
