@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2D24131C32D51A001A6C63 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2D24121C32D51A001A6C63 /* Example.swift */; };
 		1E35EA481C268DF300BFFEBD /* Monocle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E35EA471C268DF300BFFEBD /* Monocle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E35EA4F1C268DF300BFFEBD /* Monocle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E35EA441C268DF300BFFEBD /* Monocle.framework */; };
 		1E35EA541C268DF300BFFEBD /* LensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA531C268DF300BFFEBD /* LensTests.swift */; };
 		1E35EA5F1C268EC000BFFEBD /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA5E1C268EC000BFFEBD /* Lens.swift */; };
 		1E35EA611C269FE000BFFEBD /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E35EA601C269FE000BFFEBD /* Operators.swift */; };
 		1E4E7A371C3291A40018DB83 /* OpticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4E7A361C3291A40018DB83 /* OpticType.swift */; };
+		1E4E7A391C32964B0018DB83 /* Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4E7A381C32964B0018DB83 /* Prism.swift */; };
+		1E760D7F1C32A63200BCF212 /* PrismTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E760D7E1C32A63200BCF212 /* PrismTests.swift */; };
+		1E760D861C32AB6800BCF212 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E760D851C32AB6800BCF212 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E2D24121C32D51A001A6C63 /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		1E35EA441C268DF300BFFEBD /* Monocle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Monocle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E35EA471C268DF300BFFEBD /* Monocle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Monocle.h; sourceTree = "<group>"; };
 		1E35EA491C268DF300BFFEBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +40,9 @@
 		1E35EA5E1C268EC000BFFEBD /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		1E35EA601C269FE000BFFEBD /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		1E4E7A361C3291A40018DB83 /* OpticType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpticType.swift; sourceTree = "<group>"; };
+		1E4E7A381C32964B0018DB83 /* Prism.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prism.swift; sourceTree = "<group>"; };
+		1E760D7E1C32A63200BCF212 /* PrismTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismTests.swift; sourceTree = "<group>"; };
+		1E760D851C32AB6800BCF212 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +85,12 @@
 		1E35EA461C268DF300BFFEBD /* Monocle */ = {
 			isa = PBXGroup;
 			children = (
+				1E760D841C32AB5100BCF212 /* std */,
 				1E35EA471C268DF300BFFEBD /* Monocle.h */,
 				1E35EA601C269FE000BFFEBD /* Operators.swift */,
-				1E35EA5E1C268EC000BFFEBD /* Lens.swift */,
 				1E4E7A361C3291A40018DB83 /* OpticType.swift */,
+				1E35EA5E1C268EC000BFFEBD /* Lens.swift */,
+				1E4E7A381C32964B0018DB83 /* Prism.swift */,
 				1E35EA491C268DF300BFFEBD /* Info.plist */,
 			);
 			path = Monocle;
@@ -89,10 +99,20 @@
 		1E35EA521C268DF300BFFEBD /* MonocleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1E2D24121C32D51A001A6C63 /* Example.swift */,
 				1E35EA531C268DF300BFFEBD /* LensTests.swift */,
+				1E760D7E1C32A63200BCF212 /* PrismTests.swift */,
 				1E35EA551C268DF300BFFEBD /* Info.plist */,
 			);
 			path = MonocleTests;
+			sourceTree = "<group>";
+		};
+		1E760D841C32AB5100BCF212 /* std */ = {
+			isa = PBXGroup;
+			children = (
+				1E760D851C32AB6800BCF212 /* String.swift */,
+			);
+			path = std;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E35EA5F1C268EC000BFFEBD /* Lens.swift in Sources */,
+				1E4E7A391C32964B0018DB83 /* Prism.swift in Sources */,
+				1E760D861C32AB6800BCF212 /* String.swift in Sources */,
 				1E4E7A371C3291A40018DB83 /* OpticType.swift in Sources */,
 				1E35EA611C269FE000BFFEBD /* Operators.swift in Sources */,
 			);
@@ -216,6 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E35EA541C268DF300BFFEBD /* LensTests.swift in Sources */,
+				1E760D7F1C32A63200BCF212 /* PrismTests.swift in Sources */,
+				1E2D24131C32D51A001A6C63 /* Example.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
