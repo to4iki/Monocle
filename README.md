@@ -14,11 +14,13 @@ Inspired by Scala [julien-truffaut/Monocle](https://github.com/julien-truffaut/M
 
 #### [Carthage](https://github.com/Carthage/Carthage)
 
-- Insert `github "to4iki/Monocle"` to your Cartfile.
+- Insert `github "to4iki/Monocle" ~> 0.0.3` to your Cartfile.
 - Run `carthage update`.
 - Link your app with `Monocle.framework` in `Carthage/Checkouts`.
 
 ## Usage
+
+### Lens
 
 This swift struct already provides getters and setters, but modifying nested object is verbose which makes code difficult to understand and reason about.
 Some examples:
@@ -38,7 +40,7 @@ let employee: Employee = ...
 Employee(company:
     Company(address:
         Address(street:
-            Street(name: "modify \(employee.company.address.street.name)")
+            Street(name: employee.company.address.street.name.capitalizedString)
         )
     )
 )
@@ -55,6 +57,23 @@ let _company: Lens<Employee, Company> = Lens(get: { $0.company }, set: { Employe
 (_company.compose(_address.compose(_street).compose(_name))).modify(employee) { $0.capitalizedString }
 // => operator syntax
 (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
+```
+
+### Prism
+Prism is like a "Lens began to be expressed fail"
+
+Use prism:
+
+```swift
+let stringToInt: Prism<String, Int> = Prism(getOption: { Int($0) }, reverseGet: { String($0) })
+```
+
+```swift
+stringToInt.getOption("1") // .Some(1)
+stringToInt.getOption("") // .None
+stringToInt.reverseGet(1) // "1"
+stringToInt.modify("1") { $0 + 100 } // .Some(101)
+stringToInt.modify("") { $0 + 100 } // .None
 ```
 
 ## Author
