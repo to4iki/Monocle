@@ -24,6 +24,15 @@ public struct Lens<S, A>: OpticType {
     }
 }
 
+// MARK: - CustomStringConvertible
+
+extension Lens: CustomStringConvertible {
+    
+    public var description: String {
+        return "Lens(\(_get), \(_set))"
+    }
+}
+
 // MARK: - Basic
 
 extension Lens {

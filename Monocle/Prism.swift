@@ -24,6 +24,15 @@ public struct Prism<S, A>: OpticType {
     }
 }
 
+// MARK: - CustomStringConvertible
+
+extension Prism: CustomStringConvertible {
+    
+    public var description: String {
+        return "Prism(\(_getOption), \(_reverseGet))"
+    }
+}
+
 // MARK: - Basic
 
 extension Prism {
