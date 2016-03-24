@@ -10,7 +10,7 @@ import Foundation
 
 public protocol OpticType {
     
-    typealias Source
+    associatedtype Source
     
-    typealias Target
+    associatedtype Target
 }

@@ -10,6 +10,10 @@ a Lens library
 
 Inspired by Scala [julien-truffaut/Monocle](https://github.com/julien-truffaut/Monocle).
 
+## Requirements
+- Swift 2.2 or later
+- iOS 8.0 or later
+
 ## Installation
 
 #### [Carthage](https://github.com/Carthage/Carthage)
