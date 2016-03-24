@@ -21,7 +21,7 @@ precedence 170
 }
 
 internal func >>> <A, B, C>(f: B -> C, g: A -> B) -> A -> C {
-    return { (a : A) -> C in
+    return { (a: A) -> C in
         return f(g(a))
     }
 }

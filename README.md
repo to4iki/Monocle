@@ -18,7 +18,7 @@ Inspired by Scala [julien-truffaut/Monocle](https://github.com/julien-truffaut/M
 
 #### [Carthage](https://github.com/Carthage/Carthage)
 
-- Insert `github "to4iki/Monocle" ~> 0.0.3` to your Cartfile.
+- Insert `github "to4iki/Monocle"` to your Cartfile.
 - Run `carthage update`.
 - Link your app with `Monocle.framework` in `Carthage/Checkouts`.
 
