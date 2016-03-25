@@ -22,14 +22,14 @@ class PrismTests: XCTestCase {
     }
     
     func testBasic_Success() {
-        assert(String.stringToInt.getOption("1") == .Some(1))
-        assert(String.stringToInt.reverseGet(1) == "1")
-        assert((String.stringToInt.modify("1", f: plus100)) == .Some("101"))
+        XCTAssert(String.stringToInt.getOption("1") == .Some(1))
+        XCTAssert(String.stringToInt.reverseGet(1) == "1")
+        XCTAssert((String.stringToInt.modify("1", f: plus100)) == .Some("101"))
     }
     
     func testBasice_Failure() {
-        assert(String.stringToInt.getOption("") == .None)
-        assert((String.stringToInt.modify("", f: plus100)) == .None)
+        XCTAssert(String.stringToInt.getOption("") == .None)
+        XCTAssert((String.stringToInt.modify("", f: plus100)) == .None)
     }
     
     func testCompose() {
@@ -40,8 +40,8 @@ class PrismTests: XCTestCase {
         
         let _dayOfWeekToInt: Prism<DayOfWeek, Int> = _tuesday >>> String.stringToInt
         
-        assert(_dayOfWeekToInt.reverseGet(100) == .Tuesday)
-        assert(_dayOfWeekToInt.getOption(.Tuesday) == .Some(2))
-        assert(_dayOfWeekToInt.getOption(.Monday) == .None)
+        XCTAssert(_dayOfWeekToInt.reverseGet(100) == .Tuesday)
+        XCTAssert(_dayOfWeekToInt.getOption(.Tuesday) == .Some(2))
+        XCTAssert(_dayOfWeekToInt.getOption(.Monday) == .None)
     }
 }

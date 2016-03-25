@@ -30,26 +30,26 @@ class LensTests: XCTestCase {
         // andThen
         let extra = (_company >>> _address >>> _street >>> _name).get(employee)
         
-        assert(extra == "street")
+        XCTAssert(extra == "street")
     }
     
     func testGet_RightToLeft() {
         // compose
         let extra = (_name <<< _street <<< _address <<< _company).get(employee)
         
-        assert(extra == "street")
+        XCTAssert(extra == "street")
     }
     
     func testSet() {
         let extra = (_company >>> _address >>> _street >>> _name).set(employee, "new street")
         
-        assert(extra == Employee(company: Company(address: Address(street: Street(name: "new street")))))
+        XCTAssert(extra == Employee(company: Company(address: Address(street: Street(name: "new street")))))
     }
     
     func testModify() {
         let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
         
-        assert(extra == Employee(company: Company(address: Address(street: Street(name: "Street")))))
+        XCTAssert(extra == Employee(company: Company(address: Address(street: Street(name: "Street")))))
     }
     
     func testLiftGet() {
@@ -58,7 +58,7 @@ class LensTests: XCTestCase {
         let lifted = _name.lift()
         let extra = lifted.get(streets)
         
-        assert(extra == ["street1", "street2"])
+        XCTAssert(extra == ["street1", "street2"])
     }
     
     func testLiftSet() {
@@ -67,7 +67,7 @@ class LensTests: XCTestCase {
         let lifted = _name.lift()
         let extra = lifted.set(streets, ["new street1", "new street2"])
         
-        assert(extra == [Street(name: "new street1"), Street(name: "new street2")])
+        XCTAssert(extra == [Street(name: "new street1"), Street(name: "new street2")])
     }
     
     func testSplitGet() {
@@ -77,8 +77,8 @@ class LensTests: XCTestCase {
         let both = (_street >>> _name).split(_name)
         let extra = both.get((address, street))
         
-        assert(extra.0 == "street1")
-        assert(extra.1 == "street2")
+        XCTAssert(extra.0 == "street1")
+        XCTAssert(extra.1 == "street2")
     }
     
     func testSplitSet() {
@@ -88,8 +88,8 @@ class LensTests: XCTestCase {
         let both = (_street >>> _name).split(_name)
         let extra = both.set((address, street), ("new street1", "new street2"))
         
-        assert(extra.0.street.name == "new street1")
-        assert(extra.1.name == "new street2")
+        XCTAssert(extra.0.street.name == "new street1")
+        XCTAssert(extra.1.name == "new street2")
     }
     
     func testFanoutGet() {
@@ -98,8 +98,8 @@ class LensTests: XCTestCase {
         let both = _street.fanout((_street >>> _name))
         let extra = both.get(address)
         
-        assert(extra.0.name == "street1")
-        assert(extra.1 == "street1")
+        XCTAssert(extra.0.name == "street1")
+        XCTAssert(extra.1 == "street1")
     }
     
     func testFanoutSet() {
