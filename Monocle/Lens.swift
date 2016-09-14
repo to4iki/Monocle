@@ -1,11 +1,3 @@
-//
-//  Lens.swift
-//  Monocle
-//
-//  Created by to4iki on 12/20/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import Foundation
 
 public struct Lens<S, A>: OpticType {
@@ -14,11 +6,11 @@ public struct Lens<S, A>: OpticType {
     
     public typealias Target = A
     
-    private let _get: S -> A
+    fileprivate let _get: (S) -> A
     
-    private let _set: (S, A) -> S
+    fileprivate let _set: (S, A) -> S
     
-    public init(get: S -> A, set: (S, A) -> S) {
+    public init(get: @escaping (S) -> A, set: @escaping (S, A) -> S) {
         self._get = get
         self._set = set
     }
@@ -38,33 +30,33 @@ extension Lens: CustomStringConvertible {
 extension Lens {
     
     /// Runs the getter on a given structure.
-    public func get(s: Source) -> Target {
+    public func get(_ s: Source) -> Target {
         return _get(s)
     }
     
     /// Runs the getter on a given structure.
-    public func get(s: Source?) -> Target? {
+    public func get(_ s: Source?) -> Target? {
         return s.map { (a: Source) -> Target in _get(a) }
     }
     
     /// Runs the setter on a given structure and value to yield a new structure.
-    public func set(s: Source, _ t: Target) -> Source {
+    public func set(_ s: Source, _ t: Target) -> Source {
         return _set(s, t)
     }
     
     /// Runs the setter on a given structure and value to yield a new structure.
-    public func set(s: Source?, _ t: Target) -> Source? {
+    public func set(_ s: Source?, _ t: Target) -> Source? {
         return s.map { (a: Source) -> Source in _set(a, t) }
     }
     
     /// Runs the setter on a given structure and value to yield a new structure.
-    public func set(s: Source, _ t: Target?) -> Source? {
+    public func set(_ s: Source, _ t: Target?) -> Source? {
         return t.map { (b: Target) -> Source in _set(s, b) }
     }
     
     /// Runs the setter on a given structure and value to yield a new structure.
-    public func set(s: Source?, _ t: Target?) -> Source? {
-        if let a = s, b = t {
+    public func set(_ s: Source?, _ t: Target?) -> Source? {
+        if let a = s, let b = t {
             return _set(a, b)
         } else {
             return nil
@@ -72,7 +64,7 @@ extension Lens {
     }
     
     /// Transform the value of the retrieved field by a function.
-    public func modify(s: Source, f: Target -> Target) -> Source {
+    public func modify(_ s: Source, f: (Target) -> Target) -> Source {
         return set(s, f(get(s)))
     }
 }
@@ -82,7 +74,7 @@ extension Lens {
 extension Lens {
     
     /// Composes a `Lens` with the receiver.
-    public func compose<T>(other: Lens<Target, T>) -> Lens<Source, T> {
+    public func compose<T>(_ other: Lens<Target, T>) -> Lens<Source, T> {
         return Lens<Source, T>(
             get: { (s: Source) -> T in
                 other.get(self.get(s))
@@ -106,7 +98,7 @@ extension Lens {
     }
     
     /// Creates a `Lens` that focuses on two structures.
-    public func split<T, B>(other: Lens<T, B>) -> Lens<(Source, T), (Target, B)> {
+    public func split<T, B>(_ other: Lens<T, B>) -> Lens<(Source, T), (Target, B)> {
         return Lens<(Source, T), (Target, B)>(
             get: { (t: (Source, T)) -> (Target, B) in
                 (self.get(t.0), other.get(t.1))
@@ -118,7 +110,7 @@ extension Lens {
     }
     
     /// Creates a `Lens` that sends its input structure to both Lenses to focus on distinct subparts.
-    public func fanout<B>(other: Lens<Source, B>) -> Lens<Source, (Target, B)> {
+    public func fanout<B>(_ other: Lens<Source, B>) -> Lens<Source, (Target, B)> {
         return Lens<Source, (Target, B)>(
             get: { (s: Source) -> (Target, B) in
                 (self.get(s), other.get(s))

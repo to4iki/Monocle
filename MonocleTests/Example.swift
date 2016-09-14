@@ -1,11 +1,3 @@
-//
-//  Example.swift
-//  Monocle
-//
-//  Created by to4iki on 12/29/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import Foundation
 
 struct Street: Equatable {
@@ -41,11 +33,11 @@ func == (lhs: Employee, rhs: Employee) -> Bool {
 }
 
 enum DayOfWeek: String {
-    case Monday = "1"
-    case Tuesday = "2"
-    case Wednesday = "3"
-    case Thursday = "4"
-    case Friday = "5"
-    case Saturday = "6"
-    case Sunday = "7"
+    case monday = "1"
+    case tuesday = "2"
+    case wednesday = "3"
+    case thursday = "4"
+    case friday = "5"
+    case saturday = "6"
+    case sunday = "7"
 }

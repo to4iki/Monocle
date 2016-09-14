@@ -1,11 +1,3 @@
-//
-//  Prism.swift
-//  Monocle
-//
-//  Created by to4iki on 12/29/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import Foundation
 
 public struct Prism<S, A>: OpticType {
@@ -14,11 +6,11 @@ public struct Prism<S, A>: OpticType {
     
     public typealias Target = A
     
-    private let _getOption: S -> A?
+    fileprivate let _getOption: (S) -> A?
     
-    private let _reverseGet: A -> S
+    fileprivate let _reverseGet: (A) -> S
     
-    public init(getOption: S -> A?, reverseGet: A -> S) {
+    public init(getOption: @escaping (S) -> A?, reverseGet: @escaping (A) -> S) {
         _getOption = getOption
         _reverseGet = reverseGet
     }
@@ -38,19 +30,19 @@ extension Prism: CustomStringConvertible {
 extension Prism {
     
     /// Attempts to focus the prism on the given source.
-    public func getOption(s: Source) -> Target? {
+    public func getOption(_ s: Source) -> Target? {
         return _getOption(s)
     }
     
     /// Injects a value back into a modified form of the original structure.
-    public func reverseGet(t: Target) -> Source {
+    public func reverseGet(_ t: Target) -> Source {
         return _reverseGet(t)
     }
     
     /// Attempts to run a value of type `S` along both parts of the Prism.
     /// If `.None` is encountered along the getter returns `.None`,
     /// else returns `.Some` containing the final value.
-    public func modify(s: Source, f: Target -> Target) -> Source? {
+    public func modify(_ s: Source, f: @escaping (Target) -> Target) -> Source? {
         return getOption(s).map(self.reverseGet >>> f)
     }
 }
@@ -60,7 +52,7 @@ extension Prism {
 extension Prism {
     
     /// Composes a `Prism` with the receiver.
-    public func compose<T>(other: Prism<Target, T>) -> Prism<Source, T> {
+    public func compose<T>(_ other: Prism<Target, T>) -> Prism<Source, T> {
         return Prism<Source, T>(
             getOption: { (s: Source) -> T? in
                 self.getOption(s).flatMap { (t: Target) -> T? in
@@ -86,10 +78,10 @@ extension Prism {
     }
     
     /// Creates a `Prism` that focuses on two structures.
-    public func split<T, B>(other: Prism<T, B>) -> Prism<(Source, T), (Target, B)> {
+    public func split<T, B>(_ other: Prism<T, B>) -> Prism<(Source, T), (Target, B)> {
         return Prism<(Source, T), (Target, B)>(
             getOption: { (t: (Source, T)) -> (Target, B)? in
-                if let t0 = self.getOption(t.0), t1 = other.getOption(t.1) {
+                if let t0 = self.getOption(t.0), let t1 = other.getOption(t.1) {
                     return (t0, t1)
                 } else {
                     return nil
@@ -102,10 +94,10 @@ extension Prism {
     }
     
     /// Creates a `Prism` that sends its input structure to both Lenses to focus on distinct subparts.
-    public func fanout<B>(other: Prism<Source, B>) -> Prism<Source, (Target, B)> {
+    public func fanout<B>(_ other: Prism<Source, B>) -> Prism<Source, (Target, B)> {
         return Prism<Source, (Target, B)>(
             getOption: { (s: Source) -> (Target, B)? in
-                if let t0 = self.getOption(s), t1 = other.getOption(s) {
+                if let t0 = self.getOption(s), let t1 = other.getOption(s) {
                     return (t0, t1)
                 } else {
                     return nil

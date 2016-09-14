@@ -1,11 +1,3 @@
-//
-//  MonocleTests.swift
-//  MonocleTests
-//
-//  Created by to4iki on 12/20/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import XCTest
 @testable import Monocle
 
@@ -47,7 +39,7 @@ class LensTests: XCTestCase {
     }
     
     func testModify() {
-        let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalizedString }
+        let extra = (_company >>> _address >>> _street >>> _name).modify(employee) { $0.capitalized }
         
         XCTAssert(extra == Employee(company: Company(address: Address(street: Street(name: "Street")))))
     }
@@ -112,7 +104,7 @@ class LensTests: XCTestCase {
     }
     
     func testPerformanceExample() {
-        self.measureBlock {
+        self.measure {
         }
     }
     

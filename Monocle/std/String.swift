@@ -1,11 +1,3 @@
-//
-//  String.swift
-//  Monocle
-//
-//  Created by to4iki on 12/29/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import Foundation
 
 extension String: StringOptics {}
@@ -23,14 +15,14 @@ extension StringOptics {
     }
     
     public static var stringToArray: Prism<String, Array<String>> {
-        return Prism(getOption: { Array(arrayLiteral: $0) }, reverseGet: { String($0) })
+        return Prism(getOption: { Array(arrayLiteral: $0) }, reverseGet: { String(describing: $0) })
     }
     
     public static var stringToBool: Prism<String, Bool> {
         return Prism(getOption: { !$0.isEmpty }, reverseGet: { String($0) })
     }
     
-    public static var stringToNSURL: Prism<String, NSURL> {
-        return Prism(getOption: { NSURL(string: $0) }, reverseGet: { String($0) } )
+    public static var stringToNSURL: Prism<String, URL> {
+        return Prism(getOption: { URL(string: $0) }, reverseGet: { String(describing: $0) } )
     }
 }

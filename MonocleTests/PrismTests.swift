@@ -1,21 +1,13 @@
-//
-//  PrismTests.swift
-//  Monocle
-//
-//  Created by to4iki on 12/29/15.
-//  Copyright © 2015 to4iki. All rights reserved.
-//
-
 import XCTest
 @testable import Monocle
 
 class PrismTests: XCTestCase {
     
-    let plus100: Int -> Int = { $0 + 100 }
+    let plus100: (Int) -> Int = { $0 + 100 }
     
     let _tuesday = Prism<DayOfWeek, String>(
-        getOption: { $0 == .Tuesday ? .Some($0.rawValue) : nil },
-        reverseGet: { _ in .Tuesday }
+        getOption: { $0 == .tuesday ? .some($0.rawValue) : nil },
+        reverseGet: { _ in .tuesday }
     )
     
     override func setUp() {
@@ -27,22 +19,22 @@ class PrismTests: XCTestCase {
     }
     
     func testBasic_Success() {
-        XCTAssert(String.stringToInt.getOption("1") == .Some(1))
+        XCTAssert(String.stringToInt.getOption("1") == .some(1))
         XCTAssert(String.stringToInt.reverseGet(1) == "1")
-        XCTAssert((String.stringToInt.modify("1", f: plus100)) == .Some("101"))
+        XCTAssert((String.stringToInt.modify("1", f: plus100)) == .some("101"))
     }
     
     func testBasice_Failure() {
-        XCTAssert(String.stringToInt.getOption("") == .None)
-        XCTAssert((String.stringToInt.modify("", f: plus100)) == .None)
+        XCTAssert(String.stringToInt.getOption("") == .none)
+        XCTAssert((String.stringToInt.modify("", f: plus100)) == .none)
     }
     
     func testCompose() {
         let _dayOfWeekToInt: Prism<DayOfWeek, Int> = _tuesday >>> String.stringToInt
         
-        XCTAssert(_dayOfWeekToInt.reverseGet(100) == .Tuesday)
-        XCTAssert(_dayOfWeekToInt.getOption(.Tuesday) == .Some(2))
-        XCTAssert(_dayOfWeekToInt.getOption(.Monday) == .None)
+        XCTAssert(_dayOfWeekToInt.reverseGet(100) == .tuesday)
+        XCTAssert(_dayOfWeekToInt.getOption(.tuesday) == .some(2))
+        XCTAssert(_dayOfWeekToInt.getOption(.monday) == .none)
     }
     
     func testLift() {
@@ -55,22 +47,22 @@ class PrismTests: XCTestCase {
     func testSplit() {
         let both = String.stringToInt.split(_tuesday)
         
-        let extra1 = both.getOption(("1", .Monday))
-        XCTAssert(extra1?.0 == .None)
-        XCTAssert(extra1?.1 == .None)
+        let extra1 = both.getOption(("1", .monday))
+        XCTAssert(extra1?.0 == .none)
+        XCTAssert(extra1?.1 == .none)
         
-        let extra2 = both.getOption(("1", .Tuesday))
-        XCTAssert(extra2?.0 == .Some(1))
-        XCTAssert(extra2?.1 == .Some("2"))
+        let extra2 = both.getOption(("1", .tuesday))
+        XCTAssert(extra2?.0 == .some(1))
+        XCTAssert(extra2?.1 == .some("2"))
     }
     
     func testFanout() {
         let both = String.stringToInt.fanout(String.stringToDouble)
         
-        XCTAssert(both.getOption("1")?.0 == .Some(1))
-        XCTAssert(both.getOption("1")?.1 == .Some(1.0))
-        XCTAssert(both.getOption("a")?.0 == .None)
-        XCTAssert(both.getOption("a")?.1 == .None)
+        XCTAssert(both.getOption("1")?.0 == .some(1))
+        XCTAssert(both.getOption("1")?.1 == .some(1.0))
+        XCTAssert(both.getOption("a")?.0 == .none)
+        XCTAssert(both.getOption("a")?.1 == .none)
         
     }
 }
