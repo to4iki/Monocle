@@ -43,7 +43,7 @@ extension Prism {
     /// If `.None` is encountered along the getter returns `.None`,
     /// else returns `.Some` containing the final value.
     public func modify(_ s: Source, f: @escaping (Target) -> Target) -> Source? {
-        return getOption(s).map(self.reverseGet >>> f)
+        return getOption(s).map(self.reverseGet <<< f)
     }
 }
 
@@ -60,7 +60,7 @@ extension Prism {
                 }
             },
             reverseGet: { (t: T) -> Source in
-                (self.reverseGet >>> other.reverseGet)(t)
+                (self.reverseGet <<< other.reverseGet)(t)
             }
         )
     }
