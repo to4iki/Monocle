@@ -14,7 +14,7 @@ extension StringOptics {
         return Prism(getOption: { Double($0) }, reverseGet: { String($0) })
     }
     
-    public static var stringToArray: Prism<String, Array<String>> {
+    public static var stringToArray: Prism<String, [String]> {
         return Prism(getOption: { Array(arrayLiteral: $0) }, reverseGet: { String(describing: $0) })
     }
     
