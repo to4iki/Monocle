@@ -1,13 +1,8 @@
-import Foundation
-
 public struct Prism<S, A>: OpticType {
-    
     public typealias Source = S
-    
     public typealias Target = A
     
     fileprivate let _getOption: (S) -> A?
-    
     fileprivate let _reverseGet: (A) -> S
     
     public init(getOption: @escaping (S) -> A?, reverseGet: @escaping (A) -> S) {
@@ -19,7 +14,6 @@ public struct Prism<S, A>: OpticType {
 // MARK: - CustomStringConvertible
 
 extension Prism: CustomStringConvertible {
-    
     public var description: String {
         return "Prism(\(_getOption), \(_reverseGet))"
     }
@@ -28,7 +22,6 @@ extension Prism: CustomStringConvertible {
 // MARK: - Basic
 
 extension Prism {
-    
     /// Attempts to focus the prism on the given source.
     public func getOption(_ s: Source) -> Target? {
         return _getOption(s)
@@ -50,7 +43,6 @@ extension Prism {
 // MARK: - Creator
 
 extension Prism {
-    
     /// Composes a `Prism` with the receiver.
     public func compose<T>(_ other: Prism<Target, T>) -> Prism<Source, T> {
         return Prism<Source, T>(
@@ -103,7 +95,7 @@ extension Prism {
                     return nil
                 }
             },
-            reverseGet: { (a: A, b: B) -> S in
+            reverseGet: { (a: A, _: B) -> S in
                 self.reverseGet(a)
             }
         )

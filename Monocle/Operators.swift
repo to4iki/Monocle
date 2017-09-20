@@ -1,5 +1,3 @@
-import Foundation
-
 /// Left-to-Right Composition
 infix operator >>> : MultiplicationPrecedence
 

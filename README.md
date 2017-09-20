@@ -11,8 +11,8 @@ a Lens library
 Inspired by Scala [julien-truffaut/Monocle](https://github.com/julien-truffaut/Monocle).
 
 ## Requirements
-- Swift 3.0 or later
-- iOS 8.0 or later
+- Swift 4.0 or later
+- Xcode 9.0 or later
 
 ## Installation
 

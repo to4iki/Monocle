@@ -1,13 +1,8 @@
-import Foundation
-
 public struct Lens<S, A>: OpticType {
-    
     public typealias Source = S
-    
     public typealias Target = A
     
     fileprivate let _get: (S) -> A
-    
     fileprivate let _set: (S, A) -> S
     
     public init(get: @escaping (S) -> A, set: @escaping (S, A) -> S) {
@@ -19,7 +14,6 @@ public struct Lens<S, A>: OpticType {
 // MARK: - CustomStringConvertible
 
 extension Lens: CustomStringConvertible {
-    
     public var description: String {
         return "Lens(\(_get), \(_set))"
     }
@@ -28,7 +22,6 @@ extension Lens: CustomStringConvertible {
 // MARK: - Basic
 
 extension Lens {
-    
     /// Runs the getter on a given structure.
     public func get(_ s: Source) -> Target {
         return _get(s)
@@ -72,7 +65,6 @@ extension Lens {
 // MARK: - Creator
 
 extension Lens {
-    
     /// Composes a `Lens` with the receiver.
     public func compose<T>(_ other: Lens<Target, T>) -> Lens<Source, T> {
         return Lens<Source, T>(

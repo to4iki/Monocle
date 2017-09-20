@@ -1,11 +1,8 @@
-import Foundation
-
 extension String: StringOptics {}
 
 public protocol StringOptics {}
 
 extension StringOptics {
-
     public static var stringToInt: Prism<String, Int> {
         return Prism(getOption: { Int($0) }, reverseGet: { String($0) })
     }
@@ -15,7 +12,7 @@ extension StringOptics {
     }
     
     public static var stringToArray: Prism<String, [String]> {
-        return Prism(getOption: { Array(arrayLiteral: $0) }, reverseGet: { String(describing: $0) })
+        return Prism(getOption: { [$0] }, reverseGet: { String(describing: $0) })
     }
     
     public static var stringToBool: Prism<String, Bool> {
