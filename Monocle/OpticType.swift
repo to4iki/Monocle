@@ -1,4 +1,4 @@
-public protocol OpticType {
+protocol OpticType {
     associatedtype Source
     associatedtype Target
 }

@@ -73,11 +73,11 @@ let stringToInt: Prism<String, Int> = Prism(getOption: { Int($0) }, reverseGet: 
 ```
 
 ```swift
-stringToInt.getOption("1") // .Some(1)
-stringToInt.getOption("") // .None
+stringToInt.getOption("1") // .some(1)
+stringToInt.getOption("") // .none
 stringToInt.reverseGet(1) // "1"
-stringToInt.modify("1") { $0 + 100 } // .Some(101)
-stringToInt.modify("") { $0 + 100 } // .None
+stringToInt.modify("1") { $0 + 100 } // .some(101)
+stringToInt.modify("") { $0 + 100 } // .none
 ```
 
 ## Author
@@ -96,3 +96,4 @@ stringToInt.modify("") { $0 + 100 } // .None
 
 [license-url]: http://to4iki.mit-license.org/
 [license-image]: http://img.shields.io/badge/license-MIT-brightgreen.svg
+
