@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E35EA431C268DF300BFFEBD"
+               BlueprintIdentifier = "Monocle::Monocle"
                BuildableName = "Monocle.framework"
                BlueprintName = "Monocle"
                ReferencedContainer = "container:Monocle.xcodeproj">
@@ -29,26 +29,7 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E35EA4D1C268DF300BFFEBD"
-               BuildableName = "MonocleTests.xctest"
-               BlueprintName = "MonocleTests"
-               ReferencedContainer = "container:Monocle.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1E35EA431C268DF300BFFEBD"
-            BuildableName = "Monocle.framework"
-            BlueprintName = "Monocle"
-            ReferencedContainer = "container:Monocle.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -66,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1E35EA431C268DF300BFFEBD"
+            BlueprintIdentifier = "Monocle::Monocle"
             BuildableName = "Monocle.framework"
             BlueprintName = "Monocle"
             ReferencedContainer = "container:Monocle.xcodeproj">
@@ -84,7 +65,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1E35EA431C268DF300BFFEBD"
+            BlueprintIdentifier = "Monocle::Monocle"
             BuildableName = "Monocle.framework"
             BlueprintName = "Monocle"
             ReferencedContainer = "container:Monocle.xcodeproj">

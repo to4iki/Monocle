@@ -21,7 +21,7 @@ extension Lens {
     public func set(_ source: Source, _ target: Target) -> Source {
         return _set(source, target)
     }
-
+    
     /// Transform the value of the retrieved field by a function.
     public func modify(_ source: Source, transform: (Target) throws -> Target) rethrows -> Source {
         return set(source, try transform(get(source)))
@@ -32,10 +32,10 @@ extension Lens {
         return Lens<Source, T>(
             get: { (s: Source) -> T in
                 other.get(self.get(s))
-            },
+        },
             set: { (s: Source, t: T) -> Source in
                 self.set(s, other.set(self.get(s), t))
-            }
+        }
         )
     }
 }
@@ -49,3 +49,4 @@ public func >>> <S, A, T>(lhs: Lens<S, A>, rhs: Lens<A, T>) -> Lens<S, T> {
 public func <<< <S, A, T>(lhs: Lens<A, T>, rhs: Lens<S, A>) -> Lens<S, T> {
     return rhs.compose(lhs)
 }
+

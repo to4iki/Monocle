@@ -25,7 +25,7 @@ extension Prism {
     /// Attempts to run a value of type `S` along both parts of the Prism.
     /// If `.None` is encountered along the getter returns `.None`,
     /// else returns `.Some` containing the final value.
-    public func modify(_ source: Source, transform: @escaping (Target) throws -> Target) rethrows -> Source? { 
+    public func modify(_ source: Source, transform: @escaping (Target) throws -> Target) rethrows -> Source? {
         return try getOption(source).map { (t: Target) in
             let transformed = try transform(t)
             return reverseGet(transformed)
@@ -39,10 +39,10 @@ extension Prism {
                 self.getOption(s).flatMap { (t: Target) -> T? in
                     other.getOption(t)
                 }
-            },
+        },
             reverseGet: { (t: T) -> Source in
                 (self.reverseGet <<< other.reverseGet)(t)
-            }
+        }
         )
     }
 }
